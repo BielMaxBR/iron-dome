@@ -1,15 +1,11 @@
 extends Node2D
 
-
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	pass # Replace with function body.
-
+var mal = preload("res://missil_mal.tscn")
 
 func spawn_mals():
-	var inst = load("res://missil_mal.tscn").instantiate()
+	var inst = mal.instantiate()
 	inst.global_position = $Mals.global_position
-	inst.global_position.x += randi_range(-800,800)
+	inst.global_position.x += randi_range(-1000,1000)
 	add_child(inst)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

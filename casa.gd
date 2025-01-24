@@ -3,7 +3,7 @@ extends Node2D
 var bons = []
 var mals = []
 var bonzin_pack = preload("res://missil_bom.tscn")
-var lambidas =[]
+
 func _on_area_2d_area_entered(body: Area2D) -> void:
 	if body.is_in_group("maligno"):
 		if not is_instance_valid(body): return
@@ -27,9 +27,11 @@ func gerar_bonzin(malzin):
 		get_parent().call_deferred("add_child", bonzin)
 	bonzin.alvo = malzin
 
-	var call_bom = func():
-		if bonzin:
-			bons.append(bonzin)
-	lambidas.append(call_bom)
-	malzin.morri.connect(call_bom)
+	var call_bom = func(o_bom):
+		#print("MORREU")
+		if o_bom and is_instance_valid(o_bom):
+			#print("bonzin vivasso")
+			bons.append(o_bom)
+	
+	malzin.morri.connect(call_bom.bind(bonzin))
 	return bonzin
