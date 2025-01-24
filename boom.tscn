@@ -1,0 +1,56 @@
+[gd_scene load_steps=8 format=3 uid="uid://bul13du74nsfc"]
+
+[ext_resource type="Texture2D" uid="uid://b2ug6w5g0cn0l" path="res://EXPLOOOOOOOSION.png" id="1_cau0j"]
+[ext_resource type="Script" path="res://boom.gd" id="1_qb7xo"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4hik7"]
+atlas = ExtResource("1_cau0j")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3xxkm"]
+atlas = ExtResource("1_cau0j")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_idi23"]
+atlas = ExtResource("1_cau0j")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_nrrhi"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4hik7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3xxkm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_idi23")
+}],
+"loop": true,
+"name": &"default",
+"speed": 15.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_a22b4"]
+radius = 40.025
+
+[node name="Boom" type="Area2D"]
+collision_layer = 4
+collision_mask = 2
+script = ExtResource("1_qb7xo")
+
+[node name="Sprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_nrrhi")
+autoplay = "default"
+frame_progress = 0.905639
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.5
+autostart = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_a22b4")
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

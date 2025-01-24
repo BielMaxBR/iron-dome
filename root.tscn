@@ -1,0 +1,59 @@
+[gd_scene load_steps=9 format=3 uid="uid://d3tbpcjma2od3"]
+
+[ext_resource type="Script" path="res://root.gd" id="1_8ydo3"]
+[ext_resource type="Script" path="res://camera_2d.gd" id="1_mqdmd"]
+[ext_resource type="PackedScene" uid="uid://bavwhxnk6ni0p" path="res://casa.tscn" id="3_rho8n"]
+
+[sub_resource type="Gradient" id="Gradient_55v2a"]
+offsets = PackedFloat32Array(0.226087, 0.434783)
+colors = PackedColorArray(0.107799, 0.344803, 0.999997, 1, 0.0519178, 0, 0.775612, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_536kb"]
+gradient = SubResource("Gradient_55v2a")
+
+[sub_resource type="Gradient" id="Gradient_06exk"]
+colors = PackedColorArray(0, 0.572549, 0, 1, 0.12549, 0.54902, 0.223529, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_mt7cp"]
+gradient = SubResource("Gradient_06exk")
+fill_from = Vector2(0.0245399, 0)
+fill_to = Vector2(0, 1)
+
+[sub_resource type="Environment" id="Environment_24cn1"]
+background_mode = 1
+background_color = Color(0.669315, 0.669315, 0.669315, 1)
+
+[node name="Root" type="Node2D"]
+script = ExtResource("1_8ydo3")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+z_index = -1
+position = Vector2(27.6278, -5829.17)
+rotation = -1.5708
+scale = Vector2(45.5443, 22306.4)
+texture = SubResource("GradientTexture1D_536kb")
+
+[node name="Sprite2D2" type="Sprite2D" parent="."]
+z_index = -1
+position = Vector2(2, 2099)
+scale = Vector2(347.109, 65.1719)
+texture = SubResource("GradientTexture2D_mt7cp")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(-1, -283)
+script = ExtResource("1_mqdmd")
+
+[node name="Mals" type="Marker2D" parent="."]
+position = Vector2(4000, -4000)
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.3
+autostart = true
+
+[node name="Casa" parent="." instance=ExtResource("3_rho8n")]
+z_index = 1
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_24cn1")
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

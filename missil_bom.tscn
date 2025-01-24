@@ -1,0 +1,30 @@
+[gd_scene load_steps=5 format=3 uid="uid://4ugaad4v5ewa"]
+
+[ext_resource type="Script" path="res://missil_bom.gd" id="1_x66si"]
+[ext_resource type="Texture2D" uid="uid://dni2h7vllp2xx" path="res://missil.png" id="2_2yuov"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_sibm0"]
+radius = 4.0
+height = 16.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ftand"]
+radius = 35.0
+
+[node name="MissilBom" type="Area2D"]
+script = ExtResource("1_x66si")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+rotation = 1.5708
+texture = ExtResource("2_2yuov")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_sibm0")
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_ftand")
+
+[connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]
